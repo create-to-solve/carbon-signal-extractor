@@ -1,0 +1,449 @@
+======================================================================
+=== RUN START 2026-06-26T09:40:26Z ===
+======================================================================
+
+--- Running: UNFCCC_Art64_Rules ---
+thread_id: UNFCCC_Art64_Rules_20260626_151026
+[fetch_source] real-Chrome unavailable (BrowserType.launch: Chromium distribution 'chrome' is not found at C:\Users\ashis\AppData\Local\Google\Chrome\Application\chrome.exe
+Run "playwright install chrome"); falling back to Chromium
+Status: NO CHANGE (hash f8f820abe42e...)
+
+--- Final brief ---
+No changes detected for UNFCCC_Art64_Rules since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: UNFCCC_CARP_Auth ---
+thread_id: UNFCCC_CARP_Auth_20260626_151045
+[fetch_source] real-Chrome unavailable (BrowserType.launch: Chromium distribution 'chrome' is not found at C:\Users\ashis\AppData\Local\Google\Chrome\Application\chrome.exe
+Run "playwright install chrome"); falling back to Chromium
+Status: NO CHANGE (hash a16619e4b8e0...)
+
+--- Final brief ---
+No changes detected for UNFCCC_CARP_Auth since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: ICVCM ---
+thread_id: ICVCM_20260626_151059
+Status: NO CHANGE (hash 1f72bfb58233...)
+
+--- Final brief ---
+No changes detected for ICVCM since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: VCMI ---
+thread_id: VCMI_20260626_151103
+Status: NO CHANGE (hash 5987455b7f3f...)
+
+--- Final brief ---
+No changes detected for VCMI since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: BEE_India ---
+thread_id: BEE_India_20260626_151105
+Status: NO CHANGE (hash b2a63b65a13a...)
+
+--- Final brief ---
+No changes detected for BEE_India since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: CERC ---
+thread_id: CERC_20260626_151106
+[fetch_source] attempt 1 failed for https://www.cercind.gov.in/Current_reg.html: [WinError 10054] An existing connection was forcibly closed by the remote host
+Status: NO CHANGE (hash 1ba0e1dcc5c5...)
+
+--- Final brief ---
+No changes detected for CERC since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: PIB_India ---
+thread_id: PIB_India_20260626_151110
+
+>>> HUMAN REVIEW REQUIRED <<<
+Source: PIB_India
+Extracted signals:
+[
+  {
+    "headline": "Notification of Carbon Credit Trading Scheme (CCTS)",
+    "why_it_matters": "Establishes a formal mechanism for pricing greenhouse gas emissions, promoting a structured approach to carbon credit trading in India.",
+    "who_is_affected": "Project developers, carbon buyers, and policymakers within energy-intensive sectors.",
+    "signal_type": "india_regulatory"
+  },
+  {
+    "headline": "Establishment of institutional framework for the Indian Carbon Market (ICM)",
+    "why_it_matters": "Provides necessary governance and regulatory oversight for carbon trading, fostering a reliable operational environment for market players.",
+    "who_is_affected": "Entities involved in the Indian Carbon Market, including both obligated industries and renewable energy producers.",
+    "signal_type": "india_regulatory"
+  },
+  {
+    "headline": "Implementation of Greenhouse Gas Emission Intensity (GEI) targets",
+    "why_it_matters": "Sets compliance benchmarks for seven energy-intensive sectors, driving emission reduction actions and enabling the issuance of trading certificates.",
+    "who_is_affected": "Industries classified under the GEI targets as obligated entities.",
+    "signal_type": "india_regulatory"
+  },
+  {
+    "headline": "Approval of methodologies under the offset mechanism",
+    "why_it_matters": "Facilitates the creation of carbon credits through recognized practices, enhancing the credibility and integrity of the carbon market.",
+    "who_is_affected": "Project developers and entities seeking to engage in carbon offset projects.",
+    "signal_type": "india_regulatory"
+  },
+  {
+    "headline": "Accreditation of carbon verification agencies",
+    "why_it_matters": "Establishes trusted authorities for verifying carbon credits, critical for maintaining market integrity and confidence.",
+    "who_is_affected": "Carbon verification agencies and project developers engaged in offset activities.",
+    "signal_type": "india_regulatory"
+  },
+  {
+    "headline": "Regulatory support provided by Central Electricity Regulatory Commission",
+    "why_it_matters": "Ensures that there is a structured oversight for trading activities, which is vital for market functionality and transparency.",
+    "who_is_affected": "All entities participating in carbon credit trading activities.",
+    "signal_type": "india_regulatory"
+  },
+  {
+    "headline": "Establishment of a National Steering Committee for the CCTS",
+    "why_it_matters": "Creates a dedicated governance body to oversee the implementation and efficacy of the carbon credit scheme.",
+    "who_is_affected": "Government regulators and agencies involved in climate policy and carbon trading.",
+    "signal_type": "india_regulatory"
+  }
+]
+Type 'approve' to generate the brief, or 'skip' to abort.
+Your decision [approve/skip]: ======================================================================
+=== RUN START 2026-06-26T10:30:46Z ===
+======================================================================
+^C======================================================================
+=== RUN START 2026-06-26T10:34:00Z ===
+======================================================================
+
+--- Running: UNFCCC_Art64_Rules ---
+thread_id: UNFCCC_Art64_Rules_20260626_160400
+[fetch_source] real-Chrome unavailable (BrowserType.launch: Chromium distribution 'chrome' is not found at C:\Users\ashis\AppData\Local\Google\Chrome\Application\chrome.exe
+Run "playwright install chrome"); falling back to Chromium
+Status: NO CHANGE (hash f8f820abe42e...)
+
+--- Final brief ---
+No changes detected for UNFCCC_Art64_Rules since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: UNFCCC_CARP_Auth ---
+thread_id: UNFCCC_CARP_Auth_20260626_160414
+[fetch_source] real-Chrome unavailable (BrowserType.launch: Chromium distribution 'chrome' is not found at C:\Users\ashis\AppData\Local\Google\Chrome\Application\chrome.exe
+Run "playwright install chrome"); falling back to Chromium
+Status: NO CHANGE (hash a16619e4b8e0...)
+
+--- Final brief ---
+No changes detected for UNFCCC_CARP_Auth since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: ICVCM ---
+thread_id: ICVCM_20260626_160428
+Status: NO CHANGE (hash 1f72bfb58233...)
+
+--- Final brief ---
+No changes detected for ICVCM since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: VCMI ---
+thread_id: VCMI_20260626_160429
+Status: NO CHANGE (hash 5987455b7f3f...)
+
+--- Final brief ---
+No changes detected for VCMI since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: BEE_India ---
+thread_id: BEE_India_20260626_160430
+Status: NO CHANGE (hash b2a63b65a13a...)
+
+--- Final brief ---
+No changes detected for BEE_India since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: CERC ---
+thread_id: CERC_20260626_160433
+[fetch_source] attempt 1 failed for https://www.cercind.gov.in/Current_reg.html: [WinError 10054] An existing connection was forcibly closed by the remote host
+Status: NO CHANGE (hash 1ba0e1dcc5c5...)
+
+--- Final brief ---
+No changes detected for CERC since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: PIB_India ---
+thread_id: PIB_India_20260626_160436
+
+>>> HUMAN REVIEW REQUIRED <<<
+Source: PIB_India
+Extracted signals:
+[
+  {
+    "headline": "Notification of the Carbon Credit Trading Scheme (CCTS)",
+    "why_it_matters": "Establishes a formal framework for the trading of Carbon Credit Certificates (CCC) aimed at reducing greenhouse gas emissions in India.",
+    "who_is_affected": "Project developers, carbon buyers, and policymakers operating within the Indian carbon market.",
+    "signal_type": "india_regulatory"
+  },
+  {
+    "headline": "Establishment of Greenhouse Gas Emission Intensity (GEI) targets",
+    "why_it_matters": "Sets compliance requirements for seven energy-intensive sectors, fostering a structured approach to emission reductions.",
+    "who_is_affected": "Industries classified as obligated entities under the CCTS.",
+    "signal_type": "india_regulatory"
+  },
+  {
+    "headline": "Issuance of Carbon Credit Certificates (CCC) for over-achievement of targets",
+    "why_it_matters": "Encourages industries to exceed their GEI targets, thereby stimulating investment in efficiency and low-carbon technologies.",
+    "who_is_affected": "Obligated and non-obligated entities, including renewable energy producers.",
+    "signal_type": "india_regulatory"
+  },
+  {
+    "headline": "Framework for monitoring, reporting, and verification (MRV)",
+    "why_it_matters": "A robust MRV framework is critical for ensuring the integrity and reliability of emissions reductions claims in the CCTS.",
+    "who_is_affected": "Project developers and carbon verification agencies involved in the compliance process.",
+    "signal_type": "india_regulatory"
+  },
+  {
+    "headline": "Regulatory support by the Central Electricity Regulatory Commission",
+    "why_it_matters": "Provides clarity on governance and regulatory aspects governing the trading of carbon credits, facilitating transparency and accountability.",
+    "who_is_affected": "Entities engaged in trading carbon credits in the Indian carbon market.",
+    "signal_type": "india_regulatory"
+  }
+]
+Type 'approve' to generate the brief, or 'skip' to abort.
+Your decision [approve/skip]: 'ain.py' is not recognized as an internal or external command,
+operable program or batch file.
+======================================================================
+=== RUN START 2026-06-26T10:39:07Z ===
+======================================================================
+
+--- Running: UNFCCC_Art64_Rules ---
+thread_id: UNFCCC_Art64_Rules_20260626_160907
+[fetch_source] real-Chrome unavailable (BrowserType.launch: Chromium distribution 'chrome' is not found at C:\Users\ashis\AppData\Local\Google\Chrome\Application\chrome.exe
+Run "playwright install chrome"); falling back to Chromium
+Status: NO CHANGE (hash f8f820abe42e...)
+
+--- Final brief ---
+No changes detected for UNFCCC_Art64_Rules since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: UNFCCC_CARP_Auth ---
+thread_id: UNFCCC_CARP_Auth_20260626_160921
+[fetch_source] real-Chrome unavailable (BrowserType.launch: Chromium distribution 'chrome' is not found at C:\Users\ashis\AppData\Local\Google\Chrome\Application\chrome.exe
+Run "playwright install chrome"); falling back to Chromium
+Status: NO CHANGE (hash a16619e4b8e0...)
+
+--- Final brief ---
+No changes detected for UNFCCC_CARP_Auth since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: ICVCM ---
+thread_id: ICVCM_20260626_160935
+Status: NO CHANGE (hash 1f72bfb58233...)
+
+--- Final brief ---
+No changes detected for ICVCM since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: VCMI ---
+thread_id: VCMI_20260626_160936
+Status: NO CHANGE (hash 5987455b7f3f...)
+
+--- Final brief ---
+No changes detected for VCMI since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: BEE_India ---
+thread_id: BEE_India_20260626_160938
+Status: NO CHANGE (hash b2a63b65a13a...)
+
+--- Final brief ---
+No changes detected for BEE_India since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: CERC ---
+thread_id: CERC_20260626_160939
+[fetch_source] attempt 1 failed for https://www.cercind.gov.in/Current_reg.html: [WinError 10054] An existing connection was forcibly closed by the remote host
+Status: NO CHANGE (hash 1ba0e1dcc5c5...)
+
+--- Final brief ---
+No changes detected for CERC since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+
+--- Running: PIB_India ---
+thread_id: PIB_India_20260626_160942
+Status: NO CHANGE (hash 0fec6f9d232b...)
+
+--- Final brief ---
+No changes detected for PIB_India since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 4632
+signals: []
+
+--- Running: Berkeley_VROD ---
+thread_id: Berkeley_VROD_20260626_160942
+Status: NO CHANGE (hash 38f805c3e4d6...)
+
+--- Final brief ---
+No changes detected for Berkeley_VROD since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 6769
+signals: []
+
+--- Running: WorldBank_Carbon ---
+thread_id: WorldBank_Carbon_20260626_160945
+[fetch_source] real-Chrome unavailable (BrowserType.launch: Chromium distribution 'chrome' is not found at C:\Users\ashis\AppData\Local\Google\Chrome\Application\chrome.exe
+Run "playwright install chrome"); falling back to Chromium
+Status: ERROR — RuntimeError: WorldBank xlsx download failed: HTTP 403
+
+--- Final brief ---
+Source unavailable — WorldBank_Carbon fetch failed: RuntimeError: WorldBank xlsx download failed: HTTP 403
+
+Signals found: 0
+Fetch error: RuntimeError: WorldBank xlsx download failed: HTTP 403
+
+--- debug ---
+fetch_error: RuntimeError: WorldBank xlsx download failed: HTTP 403
+raw_text length: 0
+signals: []
+
+--- Running: ICAP_ETS ---
+thread_id: ICAP_ETS_20260626_160950
+Status: NO CHANGE (hash 2a8d73d86917...)
+
+--- Final brief ---
+No changes detected for ICAP_ETS since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 3151
+signals: []
+
+--- Running: ICAP_India ---
+thread_id: ICAP_India_20260626_160952
+Status: NO CHANGE (hash 693da55836a7...)
+
+--- Final brief ---
+No changes detected for ICAP_India since last run.
+
+Signals found: 0
+
+--- debug ---
+fetch_error: None
+raw_text length: 8000
+signals: []
+======================================================================
+=== RUN END   2026-06-26T10:39:53Z ===
+======================================================================
