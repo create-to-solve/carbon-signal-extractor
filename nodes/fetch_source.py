@@ -220,6 +220,7 @@ def _fetch_worldbank_xlsx(_url: str) -> str:
             browser.close()
 
     try:
+        # TODO: wb is unassigned here — openpyxl.load_workbook call was lost in earlier edit. Fix before WorldBank xlsx download works.
         sheets = wb.sheetnames
     finally:
         wb.close()
