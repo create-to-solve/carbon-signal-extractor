@@ -33,6 +33,7 @@ for k, v in defaults.items():
         st.session_state[k] = v
 
 
+# ---------- archive / chart helpers ----------
 def get_signal_distribution() -> pd.DataFrame:
     try:
         conn = sqlite3.connect("data/app.db")
@@ -137,6 +138,225 @@ def render_taxonomy_legend():
             st.divider()
 
 
+# ---------- today tab ----------
+def get_today_data():
+    conn = sqlite3.connect("data/app.db")
+
+    recent_runs = pd.read_sql_query(
+        """
+        SELECT
+            sr.source_name,
+            sr.fetched_at,
+            sr.status,
+            sr.content_length,
+            sr.run_id
+        FROM source_runs sr
+        INNER JOIN (
+            SELECT source_name, MAX(fetched_at) as max_fetched
+            FROM source_runs
+            GROUP BY source_name
+        ) latest
+        ON sr.source_name = latest.source_name
+        AND sr.fetched_at = latest.max_fetched
+        ORDER BY sr.fetched_at DESC
+        """,
+        conn,
+    )
+
+    recent_signals = pd.read_sql_query(
+        """
+        SELECT source_name, COUNT(*) as signal_count
+        FROM signals
+        WHERE detected_at >= datetime('now', '-24 hours')
+        GROUP BY source_name
+        """,
+        conn,
+    )
+
+    timeline = pd.read_sql_query(
+        """
+        SELECT date(detected_at) as day, COUNT(*) as signals
+        FROM signals
+        GROUP BY day
+        ORDER BY day
+        """,
+        conn,
+    )
+
+    conn.close()
+    return recent_runs, recent_signals, timeline
+
+
+def render_today():
+    st.subheader("📅 Today")
+
+    recent_runs, recent_signals, timeline = get_today_data()
+
+    if recent_runs.empty:
+        st.info("No sweep has been run yet. Click 'Run Intelligence Sweep' to start.")
+        return
+
+    last_run_time = recent_runs["fetched_at"].max()
+    changed = (recent_runs["status"] == "changed").sum()
+    no_change = (recent_runs["status"] == "unchanged").sum()
+    errors = (recent_runs["status"] == "error").sum()
+    new_sources = (recent_runs["status"] == "new").sum()
+
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Last Run", pd.to_datetime(last_run_time).strftime("%d %b %H:%M"))
+    col2.metric(
+        "Changed",
+        int(changed) + int(new_sources),
+        delta=None if changed == 0 else f"{changed} source(s)",
+    )
+    col3.metric("No Change", int(no_change))
+    col4.metric(
+        "Errors",
+        int(errors),
+        delta_color="inverse" if errors > 0 else "off",
+    )
+
+    st.divider()
+
+    changed_sources = recent_runs[recent_runs["status"].isin(["changed", "new"])]
+    if not changed_sources.empty:
+        st.markdown("**🟢 Changed — pending your review**")
+        for _, row in changed_sources.iterrows():
+            sig_count = recent_signals[
+                recent_signals["source_name"] == row["source_name"]
+            ]["signal_count"].values
+            sig_text = (
+                f"{sig_count[0]} signal(s) saved"
+                if len(sig_count) > 0
+                else "auto-skipped (cloud run)"
+            )
+            st.markdown(
+                f"- **{row['source_name']}** — detected "
+                f"{pd.to_datetime(row['fetched_at']).strftime('%H:%M')} — {sig_text}"
+            )
+        st.caption(
+            "Open Streamlit and run a sweep to review and approve these signals."
+        )
+        st.divider()
+
+    error_sources = recent_runs[recent_runs["status"] == "error"]
+    if not error_sources.empty:
+        st.markdown("**🔴 Errors**")
+        for _, row in error_sources.iterrows():
+            st.markdown(f"- **{row['source_name']}** — fetch failed")
+        st.divider()
+
+    if changed_sources.empty and error_sources.empty:
+        st.success("All sources checked — no changes detected since last run.")
+
+    if not timeline.empty and len(timeline) > 1:
+        st.markdown("**📈 Signals detected over time**")
+        st.bar_chart(timeline.set_index("day"))
+
+
+# ---------- source monitor tab ----------
+def get_source_monitor_data():
+    conn = sqlite3.connect("data/app.db")
+
+    df = pd.read_sql_query(
+        """
+        SELECT
+            sr.source_name,
+            MAX(sr.fetched_at)                                          AS last_checked,
+            MAX(CASE WHEN sr.status IN ('changed','new')
+                THEN sr.fetched_at END)                                 AS last_changed,
+            COUNT(*)                                                    AS total_runs,
+            SUM(CASE WHEN sr.status = 'error' THEN 1 ELSE 0 END)        AS errors,
+            ROUND(
+                100.0 * SUM(CASE WHEN sr.status = 'error' THEN 1 ELSE 0 END)
+                / COUNT(*), 1
+            )                                                           AS error_pct,
+            COALESCE(sig.signal_count, 0)                               AS total_signals,
+            latest.status                                               AS last_status
+        FROM source_runs sr
+        LEFT JOIN (
+            SELECT source_name, COUNT(*) as signal_count
+            FROM signals GROUP BY source_name
+        ) sig ON sr.source_name = sig.source_name
+        LEFT JOIN (
+            SELECT source_name, status
+            FROM source_runs
+            WHERE (source_name, fetched_at) IN (
+                SELECT source_name, MAX(fetched_at)
+                FROM source_runs GROUP BY source_name
+            )
+        ) latest ON sr.source_name = latest.source_name
+        GROUP BY sr.source_name
+        ORDER BY last_checked DESC
+        """,
+        conn,
+    )
+
+    conn.close()
+    return df
+
+
+def render_source_monitor():
+    st.subheader("🔍 Source Monitor")
+
+    df = get_source_monitor_data()
+
+    if df.empty:
+        st.info("No source runs recorded yet.")
+        return
+
+    def status_badge(status):
+        badges = {
+            "unchanged": "⬛ NO CHANGE",
+            "changed":   "🟢 CHANGED",
+            "new":       "🟢 NEW",
+            "error":     "🔴 ERROR",
+        }
+        return badges.get(status, status)
+
+    df["Status"] = df["last_status"].apply(status_badge)
+    df["Last Checked"] = (
+        pd.to_datetime(df["last_checked"]).dt.strftime("%d %b %H:%M")
+    )
+    df["Last Changed"] = (
+        pd.to_datetime(df["last_changed"]).dt.strftime("%d %b %H:%M").fillna("Never")
+    )
+
+    display_df = df[[
+        "source_name", "Status", "Last Checked", "Last Changed",
+        "total_runs", "error_pct", "total_signals",
+    ]].rename(columns={
+        "source_name":   "Source",
+        "total_runs":    "Runs",
+        "error_pct":     "Error %",
+        "total_signals": "Signals",
+    })
+
+    st.dataframe(
+        display_df,
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "Source":       st.column_config.TextColumn("Source", width="medium"),
+            "Status":       st.column_config.TextColumn("Last Status", width="medium"),
+            "Last Checked": st.column_config.TextColumn("Last Checked", width="medium"),
+            "Last Changed": st.column_config.TextColumn("Last Changed", width="medium"),
+            "Runs":         st.column_config.NumberColumn("Runs", width="small"),
+            "Error %":      st.column_config.NumberColumn(
+                "Error %", width="small", format="%.1f%%"
+            ),
+            "Signals":      st.column_config.NumberColumn("Signals", width="small"),
+        },
+    )
+
+    st.caption(
+        f"{len(df)} sources monitored · "
+        f"{int(df['total_runs'].sum())} total runs · "
+        f"{int(df['total_signals'].sum())} signals in archive"
+    )
+
+
+# ---------- completed result card ----------
 BADGES = {
     "no_change": ("⬛", "NO CHANGE"),
     "approved": ("🟢", "{n} signals"),
@@ -164,6 +384,20 @@ def reset_to_idle():
     st.session_state.pending = None
 
 
+def render_tabs():
+    tab1, tab2, tab3 = st.tabs([
+        "📅 Today", "📋 Signal Archive", "🔍 Source Monitor"
+    ])
+    with tab1:
+        render_today()
+    with tab2:
+        render_chart()
+        render_archive()
+        render_taxonomy_legend()
+    with tab3:
+        render_source_monitor()
+
+
 # ---------- header ----------
 st.title("🌍 Carbon Market Signal Intelligence")
 st.caption(
@@ -180,13 +414,7 @@ if phase == "idle":
         st.session_state.completed = []
         st.session_state.pending = None
         st.rerun()
-    render_chart()
-    render_archive()
-    render_taxonomy_legend()
-    if st.session_state.completed:
-        st.subheader("Last sweep results")
-        for item in st.session_state.completed:
-            render_completed(item)
+    render_tabs()
 
 # ---------- running ----------
 elif phase == "running":
@@ -272,7 +500,6 @@ elif phase == "reviewing":
             st.rerun()
     with col_b:
         if st.button("⏭ Skip"):
-            # Drive the graph to a clean terminal state too.
             graph.invoke(Command(resume="skip"), config=pending["config"])
             st.session_state.completed.append(
                 {
@@ -292,10 +519,8 @@ elif phase == "done":
     st.success("✅ Sweep complete")
     for item in st.session_state.completed:
         render_completed(item)
-    st.divider()
-    render_chart()
-    render_archive()
-    render_taxonomy_legend()
     if st.button("🔁 Run Again"):
         reset_to_idle()
         st.rerun()
+    st.divider()
+    render_tabs()
