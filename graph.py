@@ -1,3 +1,4 @@
+import os
 import sqlite3
 
 from langgraph.checkpoint.sqlite import SqliteSaver
@@ -45,6 +46,7 @@ def build_graph():
     builder.add_edge("format_brief", END)
     builder.add_edge("no_change", END)
 
+    os.makedirs(os.path.dirname(CHECKPOINT_DB), exist_ok=True)
     conn = sqlite3.connect(CHECKPOINT_DB, check_same_thread=False)
     checkpointer = SqliteSaver(conn)
 
