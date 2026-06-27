@@ -5,3 +5,8 @@ __pycache__/
 *.pyc
 *.pyo
 .pytest_cache/
+shot_archive.png
+shot_sources.png
+shot_today.png
+test_scrapegraph.py
+test_unfccc_pair.py
