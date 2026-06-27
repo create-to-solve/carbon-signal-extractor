@@ -1,4 +1,6 @@
 import io
+import json
+import os
 import time
 
 import httpx
@@ -6,6 +8,12 @@ import openpyxl
 from bs4 import BeautifulSoup
 
 from state import SignalState
+
+SCRAPEGRAPH_PROMPT = (
+    "Extract and return all text content from this page including document "
+    "titles, dates, regulatory updates, rules, decisions, and any descriptive "
+    "text visible"
+)
 
 MAX_TEXT_CHARS = 8000
 
@@ -88,6 +96,25 @@ def _fetch_with_browser_ua_retry(url: str) -> str:
             print(f"[fetch_source] attempt {attempt + 1} failed for {url}: {e}")
             time.sleep(1.5 * (attempt + 1))
     raise last_exc
+
+
+def fetch_scrapegraph(url: str) -> str:
+    """ScrapeGraphAI SmartScraperGraph — bypasses Incapsula via undetected
+    Playwright and returns structured content extracted by gpt-4o-mini.
+    """
+    from scrapegraphai.graphs import SmartScraperGraph
+
+    config = {
+        "llm": {
+            "model": "openai/gpt-4o-mini",
+            "api_key": os.environ["OPENAI_API_KEY"],
+        },
+        "verbose": False,
+        "headless": True,
+    }
+    graph = SmartScraperGraph(prompt=SCRAPEGRAPH_PROMPT, source=url, config=config)
+    result = graph.run()
+    return json.dumps(result, default=str, ensure_ascii=False)
 
 
 def _fetch_with_playwright(url: str) -> str:
@@ -207,7 +234,7 @@ def _fetch_worldbank_xlsx(_url: str) -> str:
 
 _STRATEGIES = {
     "CERC": _fetch_with_browser_ua_retry,
-    "UNFCCC_Art64_Rules": _fetch_with_playwright,
-    "UNFCCC_CARP_Auth": _fetch_with_playwright,
+    "UNFCCC_Art64_Rules": fetch_scrapegraph,
+    "UNFCCC_CARP_Auth": fetch_scrapegraph,
     "WorldBank_Carbon": _fetch_worldbank_xlsx,
 }
